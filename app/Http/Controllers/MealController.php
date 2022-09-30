@@ -6,6 +6,7 @@ use App\Http\Requests\MealRequest;
 use App\Models\Meal;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Category;
 
 class MealController extends Controller
 {
@@ -27,7 +28,8 @@ class MealController extends Controller
      */
     public function create()
     {
-        return view('meals.create');
+        $categories = Category::all();
+        return view('meals.create', compact('categories'));
     }
 
     /**
@@ -40,6 +42,7 @@ class MealController extends Controller
     {
         $meal = new Meal($request->all());
         $meal->user_id = $request->user()->id;
+        $meal->category_id = $request->category;
 
         $file = $request->file('image');
         $meal->image = self::createFileName($file);
@@ -91,8 +94,8 @@ class MealController extends Controller
     public function edit($id)
     {
         $meal = Meal::find($id);
-
-        return view('meals.edit', compact('meal'));
+        $categories = Category::all();
+        return view('meals.edit', compact('meal', 'categories'));
     }
 
     /**

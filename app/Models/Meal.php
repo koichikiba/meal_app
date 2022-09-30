@@ -29,4 +29,10 @@ class Meal extends Model
     {
         return 'images/meals/' . $this->image;
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
 }

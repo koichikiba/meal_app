@@ -26,6 +26,7 @@ class MealRequest extends FormRequest
         $route = $this->route()->getName();
         $rule = [
             'title' => 'required|string|max:50',
+            'category' => 'required',
             'body' => 'required|string|max:2000',
         ];
 
